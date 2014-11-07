@@ -1,18 +1,8 @@
-# Like sands through the hourglass, so are the days of our lives.
-require './window'
+{urlToOpen} = JSON.parse(decodeURIComponent(location.search.substr(14)))
 
-Atom = require './atom'
-window.atom = Atom.loadOrCreate('editor')
-# atom.initialize()
-# atom.startEditorWindow()
+ipc = require 'ipc'
+ipc.send('call-window-method', 'show')
+ipc.send('call-window-method', 'focus')
+window.focus()
 
-# Workaround for focus getting cleared upon window creation
-# windowFocused = ->
-#   window.removeEventListener('focus', windowFocused)
-#   setTimeout (-> document.querySelector('atom-workspace').focus()), 0
-# window.addEventListener('focus', windowFocused)
-
-console.log atom.getLoadSettings()
-
-atom.show()
-atom.focus()
+ipc.send('call-window-method', 'openDevTools')
